@@ -1,0 +1,31 @@
+Sub MAYUSCULAS()
+Dim Celda As Range
+For Each Celda In Selection
+Celda.Value = VBA.UCase(Celda.Value)
+Next
+End Sub
+
+Sub MINICULAS()
+Dim Celda As Range
+For Each Celda In Selection
+Celda.Value = VBA.LCase(Celda.Value)
+Next
+End Sub
+
+Sub CAPITALIZAR()
+Dim Celda As Range
+If TypeName(Selection) <> "Range" Then Exit Sub
+For Each Celda In Selection
+If Len(Celda.Value) = 0 Then Exit Sub
+    Celda.Value = Trim(Celda.Value)
+    Celda.Value = VBA.UCase(Left(Celda.Value, 1)) & Right(Celda.Value, Len(Celda.Value) - 1)
+Next Celda
+End Sub
+
+Sub ConvertirNompropio()
+Dim Celda As Range
+If TypeName(Selection) <> "Range" Then Exit Sub
+For Each Celda In Selection
+    Celda.Value = Application.WorksheetFunction.Proper(Celda.Value)
+Next Celda
+End Sub
