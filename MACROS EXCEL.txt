@@ -29,3 +29,33 @@ For Each Celda In Selection
     Celda.Value = Application.WorksheetFunction.Proper(Celda.Value)
 Next Celda
 End Sub
+
+Sub ELIMINAR_TILDES()
+'Declaramos variables
+Dim Item As Range
+'Tomamos el rango seleccionado como el área donde aplicaremos la macro
+Set Area = Application.Intersect(Selection, ActiveSheet.UsedRange)
+'Controlamos error si seleccionamos un rango sin datos
+On Error GoTo Control
+'Mediante un bucle For Each inciamos el proceso
+For Each Item In Area
+If Application.IsText(Item) Then
+'Reemplazamos acentos en vocales minúsculas
+Item = Replace(Item, "á", "a")
+Item = Replace(Item, "é", "e")
+Item = Replace(Item, "í", "i")
+Item = Replace(Item, "ó", "o")
+Item = Replace(Item, "ú", "u")
+'Reemplazamos acentos en vocales mayúsculas
+Item = Replace(Item, "Á", "A")
+Item = Replace(Item, "É", "E")
+Item = Replace(Item, "Í", "I")
+Item = Replace(Item, "Ó", "O")
+Item = Replace(Item, "Ú", "U")
+End If
+Next Item
+'Si se produce error 424 mostramos mensaje
+Control: If Err.Number = "424" Then
+MsgBox ("EL RANGO SELECCIONADO NO CONTIENE DATOS"), vbExclamation, "ELIMINAR TILDES"
+End If
+End Sub
