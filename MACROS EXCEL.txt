@@ -59,3 +59,15 @@ Control: If Err.Number = "424" Then
 MsgBox ("EL RANGO SELECCIONADO NO CONTIENE DATOS"), vbExclamation, "ELIMINAR TILDES"
 End If
 End Sub
+
+Sub LIMPIAR_TRIM_Y_SALTOS()
+    Dim Celda As Range
+    If TypeName(Selection) <> "Range" Then Exit Sub
+    For Each Celda In Selection
+        If Len(Celda.Value) > 0 Then ' Verifica si la celda no está vacía
+            Celda.Value = Trim(Celda.Value) ' Elimina espacios al inicio y al final
+            Celda.Value = Replace(Celda.Value, Chr(10), "") ' Elimina saltos de línea (LF)
+            Celda.Value = Replace(Celda.Value, Chr(13), "") ' Elimina saltos de línea (CR)
+        End If
+    Next Celda
+End Sub
